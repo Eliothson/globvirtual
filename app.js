@@ -77,6 +77,12 @@ app.get('/index',(req,response)=>{
     }else {
       response.render('client/index')
     }});
+    app.post('/index',(req,response)=>{
+        if (req.session.user){
+            response.render('client/index', {user : req.session.user})
+        }else {
+          response.render('client/index')
+        }});
 
 app.get('/inscription',(req,response)=>{
     if(req.session.user){
@@ -256,11 +262,10 @@ app.post('/ajout',(req,res)=>{
 });
 
 app.get('/market',(req,response)=>{
-    if(req.session.user){
-        response.render('client/market',{user:req.session.user})
-    }else{
-        response.render('client/market')
-    }
+    response.render('client/market')
+});
+app.get('/professionels',(req,response)=>{
+    response.render('client/professionels')
 });
 app.get('/workingpage',(req,response)=>{
     if(req.session.user){
