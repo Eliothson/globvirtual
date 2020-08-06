@@ -91,7 +91,7 @@ app.get('/professionels',(req,response)=>{
     .select('nom email pwd chemin')
     .exec()
     .then( docs=>{
-        response.render('client/professionels', {professionels : docs})
+        response.render('client/professionels', {professionels : docs, user: req.session.user})
     })
     .catch( err=>{
         console.log(err)
@@ -116,7 +116,6 @@ app.get('/conn',(req,response)=>{
     }
 });
 app.post('/conn',(req,res)=>{
-
     Users.find()
     .select('nom email pwd chemin')
     .exec()
@@ -133,9 +132,7 @@ app.post('/conn',(req,res)=>{
             res.redirect('/userdashboard')
         }else(
             res.redirect('/conn')
-        )
-        
-      
+        )      
     })
     .catch( err=>{
         console.log(err)
@@ -154,8 +151,6 @@ app.get('/inscription',(req,response)=>{
         response.render('client/inscription')
     }
 });
-
-
 app.post('/inscription',upload.single("postmedia"), (req,res)=>{
     const user = new Users({
         _id : new mongoose.Types.ObjectId,
@@ -166,7 +161,7 @@ app.post('/inscription',upload.single("postmedia"), (req,res)=>{
     });
     user.save()
     .then( ()=>{
-        res.redirect('/')
+        res.redirect('/conn')
     })
     .catch(err=>{
         res.send(err);
@@ -174,9 +169,17 @@ app.post('/inscription',upload.single("postmedia"), (req,res)=>{
 })
 app.get('/userdashboard',(req,res)=>{
     if(req.session.user){
-        res.render('client/userdashboard', {user : req.session.user})
+        Produits.find()
+        .select('nomProduit prix description chemin id')
+        .exec()
+        .then( docs=>{
+            response.render('client/userdashboard', {produit : docs,user : req.session.user})
+        })
+        .catch( err=>{
+        console.log(err)
+        });
     }else{
-        res.redirect('client/userdashboard')
+        res.redirect('/')
     }
 })
 app.get('/professionelSingle/:id',(req,res)=>{
@@ -184,7 +187,7 @@ app.get('/professionelSingle/:id',(req,res)=>{
     .select()
     .exec()
     .then( docs=>{
-        res.render('client/professionelSingle', {singleUser : docs})
+        res.render('client/professionelSingle', {singleUser : docs, user: req.session.user})
     })
     .catch( err=>{
         console.log(err)
@@ -208,7 +211,7 @@ app.post('/ajouterProduit',upload.single("postmedia"),(req,res)=>{
     });
     produits.save()
     .then( ()=>{
-        res.redirect('/')
+        res.redirect('/userdashboard')
     })
     .catch(err=>{
         res.send(err);
@@ -232,9 +235,7 @@ app.get('/singleproduct/:id',(req,response)=>{
         response.status(500);
     });
 });
-
-app.get('/singleUser', (req,res)=>{
-    
+app.get('/singleUser', (req,res)=>{  
 });
 
 
