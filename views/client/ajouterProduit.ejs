@@ -1,0 +1,43 @@
+<%- include ('header')-%>
+<div class="container">
+    <br><br><br><br> <br><br>
+    <h1>Ajouter Votre Produit</h1>
+
+    <div class="row">
+        <form action="ajouterProduit" method="POST" enctype="multipart/form-data" class="mx-auto row form-group col-12">
+            <div class=" mx-auto col-lg-6">
+                <img class=" mx-auto text-center" src="http://via.placeholder.com/380x200" 
+                                    style="width: 100%;height: auto;"
+                                id="preview-image">
+                <input type="file" name="postmedia" placeholder="Mettre une image" id="upload" onchange="previewImage(this);">         
+            </div>
+            <div class="col-lg-6">
+                <label>Nom du Produit</label>
+                <input type="text" class="form-control" name="nomProduit" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                <br>
+                <label>Prix en US</label>
+                <input type="text" class="form-control" name="prix" id="prix"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                <br>
+                <label>Description</label>
+                    <textarea class="form-control" name="description" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Ajouter</button>
+            </div> 
+        </form>
+    </div>
+    <br> <br>
+</div>
+<script src="jquery-1.9.1.js"></script>
+<script>
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#preview-image').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+
+<%- include ('footer')-%>

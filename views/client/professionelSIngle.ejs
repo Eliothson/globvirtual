@@ -2,24 +2,34 @@
 <div class="container">
     <div class="col">
         <div class="login_form_inner">
-            <form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
+            <br><br>
+            <div class="">
                 <div class="col-md-12 form-group">
-                    <img class="rounded-circle" width="50%" src="">
+                    <img class="rounded-circle" width="170px" src="<%= singleUser.chemin%>">
                 </div>
-                <div class="col-md-12 form-group">
-                    <h1>Nom et Prenom</h1>
-                    <p></p>
+                <div class="mx-auto row col-lg-12 col-12 col-md-12 form-group">
+                    <div class="  col-lg-6 col-md-6 col-sm-12">
+                        <h3>Nom/Prenom</h3>
+                        <p> <%= singleUser.nom%></p>
+                    </div>
+                    <div class="  col-lg-6 col-md-6 col-sm-12">
+                        <h3>Email</h3>
+                        <p> <%= singleUser.email %></p>
+                    </div>
                 </div>
-                <div class="col-md-12 form-group">
-                    <h1>Email</h1>
-                    <p></p>
+                <div class="mx-auto row col-lg-12 col-12 col-md-12 form-group">
+                    <div class="  col-lg-6 col-md-6 col-sm-12">
+                        <h3>Tel</h3>
+                        <p></p>
+                    </div>
+                    <div class=" col-lg-6 col-md-6 col-sm-12">
+                        <h3>champ d'activite</h3>
+                        <p></p>
+                    </div>
                 </div>
-                <div class="col-md-12 form-group">
-                    <h1>Description</h1>
-                    <p></p>
-                </div>
+                
             
-            </form>
+            </div>
         </div>
     </div>
 </div>

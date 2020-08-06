@@ -7,16 +7,23 @@ const nodemailer= require('nodemailer')
 const date= require('date-and-time')
 var ObjectId = require('mongodb').ObjectID;
 const Users= require('./models/user')
-const Offres= require('./models/offre')
+const Produits= require('./models/produits')
 const expressSession= require('express-session')
 
 // const date=require('date-and-time')
 app.use('/upload', express.static('upload'));
 app.use('/modifier/upload', express.static(__dirname + '/upload'));
+app.use('/singleproduct/upload', express.static(__dirname + '/upload'));
+app.use('/professionelSingle/upload', express.static(__dirname + '/upload'));
+
+
+
 
 app.use('/assets', express.static(__dirname + '/assets'));
-app.use('/visionkat/assets', express.static(__dirname + '/assets'));
 app.use('/admin/assets', express.static(__dirname + '/assets'));
+app.use('/singleproduct/assets', express.static(__dirname + '/assets'));
+app.use('/professionelSingle/assets', express.static(__dirname + '/assets'));
+
 
 app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({extended : false}));
@@ -34,7 +41,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage: storage});
 
-
 app.use((req,res,next)=>{
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -47,7 +53,6 @@ app.use((req,res,next)=>{
     }
     next(); 
 });
-
 mongoose.connect('mongodb+srv://admin:1234@globvirtual.fzrhv.mongodb.net/<dbname>?retryWrites=true&w=majority',
 {useNewUrlParser : true, useUnifiedTopology: true  }, (error)=>{
  if(error)console.log(error);
@@ -68,13 +73,19 @@ app.get('/index',(req,response)=>{
       response.render('client/index')
     }
 });
+
 app.get('/market',(req,response)=>{
-    if (req.session.user){
-        response.render('client/market', {user : req.session.user})
-    }else {
-      response.render('client/market')
-    }
+    Produits.find()
+    .select('nomProduit prix description chemin id')
+    .exec()
+    .then( docs=>{
+        response.render('client/market', {produit : docs})
+    })
+    .catch( err=>{
+        console.log(err)
+    });
 });
+
 app.get('/professionels',(req,response)=>{
     Users.find()
     .select('nom email pwd chemin')
@@ -94,6 +105,7 @@ app.get('/contact',(req,response)=>{
         response.render('client/contact')
     }
 });
+
 
 //fonctionalites des utilisateurs
 app.get('/conn',(req,response)=>{
@@ -167,17 +179,62 @@ app.get('/userdashboard',(req,res)=>{
         res.redirect('client/userdashboard')
     }
 })
-app.get('/professionelSingle',(req,res)=>{
+app.get('/professionelSingle/:id',(req,res)=>{
+    Users.findById({_id :ObjectId(req.params.id)})
+    .select()
+    .exec()
+    .then( docs=>{
+        res.render('client/professionelSingle', {singleUser : docs})
+    })
+    .catch( err=>{
+        console.log(err)
+    });
+})
+app.get('/ajouterProduit',(req,res)=>{
     if(req.session.user){
-        res.render('client/professionelSingle', {user : req.session.user})
+        res.render('client/ajouterProduit', {user : req.session.user})
     }else{
-        res.render('client/professionelSingle', {user : req.session.user})
+        res.render('client/ajouterProduit')
     }
 })
+app.post('/ajouterProduit',upload.single("postmedia"),(req,res)=>{
+    const produits = new Produits({
+        _id : new mongoose.Types.ObjectId,
+        nomProduit : req.body.nomProduit,
+        prix: req.body.prix,
+        description: req.body.description,
+        chemin:req.file.path,
+        userId: req.session.user._id
+    });
+    produits.save()
+    .then( ()=>{
+        res.redirect('/')
+    })
+    .catch(err=>{
+        res.send(err);
+    });
+})
+
 
 //fonctionalites des produits
-app.get('/singleproduct',(req,response)=>{
-    response.render('client/singleproduct')
+app.get('/singleproduct/:id',(req,response)=>{
+    Produits.findById({_id :ObjectId(req.params.id)})
+    .select()
+    .exec()
+    .then( docs=>{
+        response.render('client/singleproduct',{
+            prod:docs,
+            user: req.session.user
+        }) 
+    })
+    .catch( err=>{
+        console.log(err);
+        response.status(500);
+    });
+});
+
+app.get('/singleUser', (req,res)=>{
+    
 });
 
 
@@ -241,7 +298,6 @@ app.get('/supprimer/:id', (req, response)=>{
         console.log(error);
     })
 })
-
 app.get('/efasepyes/:id', (req,res)=>{
     Pyesclient.findByIdAndDelete(req.params.id)
     .then( ()=>{
@@ -251,7 +307,6 @@ app.get('/efasepyes/:id', (req,res)=>{
         console.log(error);
     })
 })
-
 
 //gestion des erreus dans les urls
 app.use((req, res, next)=>{
