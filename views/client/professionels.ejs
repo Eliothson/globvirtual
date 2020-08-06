@@ -20,92 +20,20 @@
 <div class="section">
     <div class="container">
         <div class="row">
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
+          <% professionels.forEach(function (professionel){%>
+            <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
+              <div class="text-center" class=" card playlist-item">
+                <div class="card-body">
+                  <div style="text-align: center;" class="text-center">
+                    <img  width="80%" src="<%= professionel.chemin %>" class="rounded" alt="...">
+                  </div>
+                  <h5 tyle="text-align: center;" class="text-center" class="card-title"><%= professionel.nom%></h5>
+                  <p class="card-text"><%= professionel.mail %></p>
+                  <a href="/professionelSingle" class="btn btn-danger">Voir</a> 
                 </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
               </div>
             </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          <div class="mix col-lg-3 col-md-4 col-sm-6 chere">
-            <div class="text-center" class=" card playlist-item">
-              <div class="card-body">
-                <div style="text-align: center;" class="text-center">
-                  <img src="/assets/img/henoc.png" class="rounded" alt="...">
-                </div>
-                <h5 tyle="text-align: center;" class="text-center" class="card-title">Henoc Fontin</h5>
-                <p class="card-text">Chanteur Evangelique, Musique Worship</p>
-                <a href="/artiste" class="btn btn-danger">Voir</a> 
-              </div>
-            </div>
-          </div>
-          
-          
+          <%})%>
         </div>
       </div>
       <hr>

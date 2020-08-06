@@ -1,20 +1,5 @@
 <%-include ('header')-%>
 
-	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					<h1>Page De connection </h1>
-					<nav class="d-flex align-items-center">
-						<a href="/">Aceuil<span class="lnr lnr-arrow-right"></span></a>
-						<a href="/">Connection/ Creation Compte</a>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Banner Area -->
 
 	<!--================Login Box Area =================-->
 	<section class="login_box_area section_gap">
@@ -26,19 +11,19 @@
 						<div class="hover">
 							<h4>Nouveau sur Le Website?</h4>
 							<p>Nos Contenus sont basé uniquement sur la création de richesse.</p>
-							<a class="primary-btn" href="registration.html">Creer votre Compte</a>
+							<a class="primary-btn" href="/inscription">Creer votre Compte</a>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Connectez-vous</h3>
-						<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+						<form class="row login_form" action="/conn" method="POST" >
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control" id="name" name="mail" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="text" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
@@ -47,7 +32,7 @@
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Connection</button>
+								<button type="submit" class="primary-btn">Connection</button>
 								<a href="#">Mot de passe Oubliez??</a>
 							</div>
 						</form>

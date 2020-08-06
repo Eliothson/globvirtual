@@ -1,0 +1,107 @@
+<%-include ('header')-%>
+
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="login_form_inner">
+                    <form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
+                        <div class="col-md-12 form-group">
+                            <img class="rounded-circle" width="50%" src="<%= user.chemin%>">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <h1>Nom et Prenom</h1>
+                            <p><%= user.nom%></p>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <h1>Email</h1>
+                            <p><%= user.email%></p>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <h1>Description</h1>
+                            <p></p>
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <br><br> <br><br> 
+                
+                    <h1>Liste de Vos Produits</h1>
+                   
+                    <button class="btn btn-primary">
+                        <i class="fa fa-plus"></i> Ajouter Produit
+                    </button>
+            <hr>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <span> Prix </span>
+                                    <h6>$189.00</h6>
+                                </div>
+                            <div class="btn btn-warning">
+                                <i class="fa fa-trash"></i>
+                            </div>
+                            <div class="btn btn-danger">
+                                <i class="fa fa-cogs"></i>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>	
+        </div>
+    </div>
+</section>
+<%-include ('footer')-%>

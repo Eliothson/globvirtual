@@ -1,0 +1,64 @@
+<%-include ('header')-%>
+
+	
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Inscrivez-vous</h3>
+						<form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
+							<div class="col-md-12 form-group">
+								<input type="file" name="postmedia" placeholder="Mettre une image" id="upload" onchange="previewImage(this);">
+                                    <img class="rounded-circle" src="http://via.placeholder.com/380x200" 
+                                    style="
+                                        background: #333;
+                                        height:300px;
+                                        width: 300px;
+                                    "
+                                    id="preview-image">
+							</div>
+							
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="nom" placeholder="Nom et Prenom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="mail" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Creer Votre Compt</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="/assets/img/login.jpg" alt="">
+						<div class="hover">
+							<h4>Vous avez deja cotre compte? Connectez-vous ici</h4>
+							<a class="primary-btn" href="/conn">Connection</a>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+	<script src="jquery-1.9.1.js"></script>
+<script>
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#preview-image').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+
+<%-include ('footer')-%>

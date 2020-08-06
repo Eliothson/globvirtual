@@ -8,16 +8,9 @@ const date= require('date-and-time')
 var ObjectId = require('mongodb').ObjectID;
 const Users= require('./models/user')
 const Offres= require('./models/offre')
-
-
-
-
-
 const expressSession= require('express-session')
 
 // const date=require('date-and-time')
-
-
 app.use('/upload', express.static('upload'));
 app.use('/modifier/upload', express.static(__dirname + '/upload'));
 
@@ -29,17 +22,17 @@ app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({extended : false}));
 app.use(bodyparser.json());
 app.use(expressSession({ secret: "mtsecretkey123", saveUninitialized: false, resave:false}))
-// let datepost;
-// const storage = multer.diskStorage({
-//         destination : function(req, file, cb){
-//             cb(null, './upload/');
-//         },
-//         filename: function (req, file, cb){
-//             datepost = date.format(new Date(), 'YY-MM-DD HH-mm-ss SSS');
-//            cb(null, datepost+file.originalname);
-//         }
-// });
-// const upload = multer({storage: storage});
+let datepost;
+const storage = multer.diskStorage({
+        destination : function(req, file, cb){
+            cb(null, './upload/');
+        },
+        filename: function (req, file, cb){
+            datepost = date.format(new Date(), 'YY-MM-DD HH-mm-ss SSS');
+           cb(null, datepost+file.originalname);
+        }
+});
+const upload = multer({storage: storage});
 
 
 app.use((req,res,next)=>{
@@ -55,14 +48,12 @@ app.use((req,res,next)=>{
     next(); 
 });
 
-
-mongoose.connect('mongodb+srv://admin:admin1234@appmusic.mrlsy.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://admin:1234@globvirtual.fzrhv.mongodb.net/<dbname>?retryWrites=true&w=majority',
 {useNewUrlParser : true, useUnifiedTopology: true  }, (error)=>{
- //console.log(error);
+ if(error)console.log(error);
 })
-//mongoose.connect("mongodb://localhost:27017/JwenPyesDatabase", {useNewUrlParser : true, useUnifiedTopology: true});
 
-
+//urls de base
 app.get('/',(req,response)=>{
     if (req.session.user){
         response.render('client/index', {user : req.session.user})
@@ -70,77 +61,32 @@ app.get('/',(req,response)=>{
       response.render('client/index')
     }
 });
-
 app.get('/index',(req,response)=>{
     if (req.session.user){
         response.render('client/index', {user : req.session.user})
     }else {
       response.render('client/index')
-    }});
-    app.post('/index',(req,response)=>{
-        if (req.session.user){
-            response.render('client/index', {user : req.session.user})
-        }else {
-          response.render('client/index')
-        }});
-
-app.get('/inscription',(req,response)=>{
-    if(req.session.user){
-        response.render('client/dashboard', {user : req.session.user})
-    }else{
-        response.render('client/inscription')
     }
 });
-
-app.get('/connection',(req,response)=>{
-    if(req.session.user){
-        response.render('client/dashboard', {user : req.session.user})
-    }else{
-        response.render('client/connection')
-    }
-
-});
-app.get('/dashboard',(req,response)=>{
-    var useroffre=[]
+app.get('/market',(req,response)=>{
     if (req.session.user){
-        Offres.find()
-        .select()
-        .exec()
-        .then( docs=>{
-            for (i=0; i< docs.length; i++){
-                if(docs[i].userId==req.session.user._id){
-                    useroffre[useroffre.length+1]=docs[i]
-                } 
-            }
-        })
-        .then(()=>{
-            response.render('client/dashboard',{user:req.session.user, useroffre:useroffre})
-        })
-        .catch( err=>{
-            console.log(err)
-        });
-
-    }else{
-        response.render('client/connection')
+        response.render('client/market', {user : req.session.user})
+    }else {
+      response.render('client/market')
     }
 });
-
-app.get('/offres',(req,response)=>{
-    Offres.find()
-    .select()
+app.get('/professionels',(req,response)=>{
+    Users.find()
+    .select('nom email pwd chemin')
     .exec()
-    .then((docs)=>{
-        if(req.session.user){
-            response.render('client/offres',{user:req.session.user, useroffre:docs.reverse()})
-        }else{
-            response.render('client/offres',{useroffre:docs.reverse()})
-        }
+    .then( docs=>{
+        response.render('client/professionels', {professionels : docs})
     })
     .catch( err=>{
         console.log(err)
     });
-});
 
+});
 app.get('/contact',(req,response)=>{
     if(req.session.user){
         response.render('client/contact',{user:req.session.user})
@@ -149,144 +95,22 @@ app.get('/contact',(req,response)=>{
     }
 });
 
-app.get('/help',(req,response)=>{
+//fonctionalites des utilisateurs
+app.get('/conn',(req,response)=>{
     if(req.session.user){
-        response.render('client/help',{user:req.session.user})
+        response.render('client/dashboard', {user : req.session.user})
     }else{
-        response.render('client/help')
+        response.render('client/conn')
     }
 });
+app.post('/conn',(req,res)=>{
 
-app.get('/artiste',(req,response)=>{
-    if(req.session.user){
-        response.render('client/artiste',{user:req.session.user})
-    }else{
-        response.render('client/artiste')
-    }
-});
-
-app.get('/detailproduit',(req,response)=>{
-    if(req.session.user){
-        response.render('client/detailproduit',{user:req.session.user})
-    }else{
-        response.render('client/detailproduit')
-    }
-});
-
-app.get('/ajout',(req,response)=>{
-
-    if(req.session.user){
-        if(req.query.var=="projet"){
-            response.render('client/ajout',{user:req.session.user, ajouttype:"projet"})
-        }else if(req.query.var=="offre"){
-            response.render('client/ajout',{user:req.session.user, ajouttype:"offre"})
-        } else if (req.query.var=="son"){
-            response.render('client/ajout',{user:req.session.user, ajouttype:"son"})
-        }else{
-            response.render('client/ajout',{user:req.session.user, ajouttype:"track"})
-        }
-    }else{
-        response.render('client/connection')
-    }
-});
-
-app.post('/ajout',(req,res)=>{
-    if(req.body.type=="offre"){
-        const offre = new Offres({
-            _id : new mongoose.Types.ObjectId,
-            titre : req.body.titreoffre,
-            description: req.body.description,
-            budget: req.body.budget,
-            userId: req.session.user._id
-        });
-        offre.save()
-        .then(()=>{
-            res.redirect('/dashboard')
-        })
-        .catch(err=>{
-            res.send(err);
-        });
-
-    }else if(req.body.type=="son"){
-        const offre = new Offres({
-            _id : new mongoose.Types.ObjectId,
-            titre : req.body.titreoffre,
-            description: req.body.description,
-            budget: req.body.budget,
-            userId: req.session.user._id
-        });
-        offre.save()
-        .then(()=>{
-            res.redirect('/dashboard')
-        })
-        .catch(err=>{
-            res.send(err);
-        });
-
-    }else if(req.body.type=="track"){
-        const offre = new Offres({
-            _id : new mongoose.Types.ObjectId,
-            titre : req.body.titreoffre,
-            description: req.body.description,
-            budget: req.body.budget,
-            userId: req.session.user._id
-        });
-        offre.save()
-        .then(()=>{
-            res.redirect('/dashboard')
-        })
-        .catch(err=>{
-            res.send(err);
-        });
-
-    }else{
-
-        const offre = new Offres({
-            _id : new mongoose.Types.ObjectId,
-            titre : req.body.titreoffre,
-            description: req.body.description,
-            budget: req.body.budget,
-            userId: req.session.user._id
-        });
-        offre.save()
-        .then(()=>{
-            res.redirect('/dashboard')
-        })
-        .catch(err=>{
-            res.send(err);
-        });
-    }
-    
-
-    
-});
-
-app.get('/market',(req,response)=>{
-    response.render('client/market')
-});
-app.get('/professionels',(req,response)=>{
-    response.render('client/professionels')
-});
-app.get('/workingpage',(req,response)=>{
-    if(req.session.user){
-        response.render('client/workingpage',{user:req.session.user})
-    }else{
-        response.render('client/workingpage')
-    }
-});
-
-
-
-
-
-app.post('/connection', (req,res)=>{
-    var test=undefined
     Users.find()
-    .select()
+    .select('nom email pwd chemin')
     .exec()
     .then( docs=>{
         for (i=0; i< docs.length; i++){
-            if(docs[i].email==req.body.email && docs[i].pwd==req.body.pwd){
+            if(docs[i].mail==req.body.email && docs[i].pwd==req.body.pwd){
                 req.session.user=docs[i]
                 break;
             } 
@@ -294,48 +118,68 @@ app.post('/connection', (req,res)=>{
     })
     .then(()=>{
         if(req.session.user){
-            res.redirect('client/dashboard')
-        }else{
-            
-        }
+            res.redirect('/userdashboard')
+        }else(
+            res.redirect('/conn')
+        )
+        
+      
     })
     .catch( err=>{
         console.log(err)
     });
-    
-
-    
-
 })
-app.get('/deconnection',(req,response)=>{
+app.get('/deconection',(req,response)=>{
     if (req.session.user){
         req.session.user=null
         response.redirect('/')
+    }
+});
+app.get('/inscription',(req,response)=>{
+    if(req.session.user){
+        response.render('client/dashboard', {user : req.session.user})
     }else{
-        response.redirect('/')
-
+        response.render('client/inscription')
     }
 });
 
-app.post('/inscription',(req,res)=>{
+
+app.post('/inscription',upload.single("postmedia"), (req,res)=>{
     const user = new Users({
         _id : new mongoose.Types.ObjectId,
-        nom : req.body.name,
-        prenom : req.body.prenom,
-        description: req.body.description,
-        lienprofil: "",
-        email: req.body.email,
-        pwd: req.body.pwd
+        nom : req.body.nom,
+        email: req.body.mail,
+        pwd: req.body.pwd,
+        chemin:req.file.path
     });
     user.save()
-    .then(()=>{
-        res.redirect('/connection')
-        res.end()
+    .then( ()=>{
+        res.redirect('/')
     })
     .catch(err=>{
         res.send(err);
     });
 })
+app.get('/userdashboard',(req,res)=>{
+    if(req.session.user){
+        res.render('client/userdashboard', {user : req.session.user})
+    }else{
+        res.redirect('client/userdashboard')
+    }
+})
+app.get('/professionelSingle',(req,res)=>{
+    if(req.session.user){
+        res.render('client/professionelSingle', {user : req.session.user})
+    }else{
+        res.render('client/professionelSingle', {user : req.session.user})
+    }
+})
+
+//fonctionalites des produits
+app.get('/singleproduct',(req,response)=>{
+    response.render('client/singleproduct')
+});
+
 
 
 
