@@ -173,7 +173,7 @@ app.get('/userdashboard',(req,res)=>{
         .select('nomProduit prix description chemin id')
         .exec()
         .then( docs=>{
-            response.render('client/userdashboard', {produit : docs,user : req.session.user})
+            res.render('client/userdashboard', {produit : docs,user : req.session.user})
         })
         .catch( err=>{
         console.log(err)
