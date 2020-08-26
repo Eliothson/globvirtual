@@ -156,6 +156,8 @@ app.post('/inscription',upload.single("postmedia"), (req,res)=>{
         _id : new mongoose.Types.ObjectId,
         nom : req.body.nom,
         email: req.body.mail,
+        tel : req.body.tel,
+        prof: req.body.prof,
         pwd: req.body.pwd,
         chemin:req.file.path
     });
@@ -225,10 +227,20 @@ app.get('/singleproduct/:id',(req,response)=>{
     .select()
     .exec()
     .then( docs=>{
-        response.render('client/singleproduct',{
-            prod:docs,
-            user: req.session.user
-        }) 
+        Users.findById({_id :ObjectId(docs.userId)})
+        .select("tel email")
+        .exec()
+        .then( doc=>{
+            response.render('client/singleproduct',{
+                prod:docs,
+                infomarchant:doc,
+                user: req.session.user
+            }) 
+        })
+        .catch( err=>{
+            console.log(err);
+            response.status(500);
+        })
     })
     .catch( err=>{
         console.log(err);
@@ -244,33 +256,34 @@ app.get('/singleUser', (req,res)=>{
 //-------------------------------- admin part -------------------------
 
 app.get('/admin', (req,res)=>{
-    Users.countDocuments({}, (err,user)=>{
-        Kat.countDocuments({}, (err,kat)=>{
-            Lotpyess.countDocuments({}, (err,lotpyes)=>{
-                Fich.countDocuments({}, (err,fich)=>{
-                    Entreprise.countDocuments({},(err,entreprise)=>{
-                        res.render('admin/dashboard',{
-                        user:user,
-                        kat:kat,
-                        lotpyes: lotpyes,
-                        fich:fich,
-                        entreprise:entreprise
-                        })
-                    })
-                })
-            })
-        })
-    })
     
+    res.render('client/admin', {user : req.session.user})
+})
+app.post('/admin', (req,res)=>{
+    if (req.body.pseudo =="administrator" && req.body.pwd =="admin2020"){
+        req.session.admin =1
+        res.render('client/administrator', {user1 : req.session.admin})
+    }else(
+        res.redirect('/')
+    )
 })
 
-app.get('/listutilisateur',(req,res)=>{
+
+
+
+
+app.get('/useradmin',(req,res)=>{
     Users.find()
-    .select(' _id nom prenom telephone email ')
+    .select('nom tel email')
     .exec()
     .then( docs=>{
-        res.render('admin/listutilisateur',{user:docs})
+        docs.reverse()
+        req.session.admin =1
+        res.render('client/useradmin', {user1 : req.session.admin, users: docs})
     })
+    .catch( err=>{
+    console.log(err)
+    });
     
 })
 app.get('/modifierUti/:id',(req,res)=>{

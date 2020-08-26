@@ -9,12 +9,32 @@
 		<div class="col-lg-6">
 				<h3><%= prod.nomProduit %></h3>
 				<h2>$ <%= prod.prix %> US </h2>
-				<p> <%= prod.description %> </p>
-				
+				<p> <%= prod.description %> </p>				
 		</div>
 	</div>
-	<br><br><br>
+	<br><br>
 </div>
 
+
+<div class="container">
+	<h1> Info Marchant</h1>
+	<p>Utiliser ces informations pour contacter le marchant concernant ce produit</p>
+</div>
+<div class="container">
+	<table class="table">
+	  <thead>
+		<tr>
+		  <th>Telephone</th>
+		  <th>E-mail</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td><%= infomarchant.tel%></td>
+		  <td><%= infomarchant.email%></td>
+		</tr>      
+	  </tbody>
+	</table>
+  </div>
 
 <%- include ('footer')-%>

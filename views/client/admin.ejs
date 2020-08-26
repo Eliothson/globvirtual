@@ -2,25 +2,17 @@
 
 
 	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="/assets/img/login.jpg" alt="">
-						<div class="hover">
-							<h4>Nouveau sur Le Website?</h4>
-							<p>Nos Contenus sont basé uniquement sur la création de richesse.</p>
-							<a class="primary-btn" href="/inscription">Creer votre Compte</a>
-						</div>
-					</div>
-				</div>
+	<section class="login_box_area section_gap text-center" style="text-align: center;">
+		<div class="container text-center">
+			<br><br><br>
+			<div class="row text-center">
+				
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Connectez-vous</h3>
-						<form class="row login_form" action="/conn" method="POST" >
+						<h3>Connectez-vous Administrateur</h3>
+						<form class="row login_form" action="/admin" method="POST" >
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="mail" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'email'">
+								<input type="text" class="form-control" id="name" name="pseudo" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Pseudo'">
 							</div>
 							<div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
@@ -37,6 +29,11 @@
 							</div>
 						</form>
 					</div>
+				</div>
+				<div class="col-lg-6">
+					<br><br><br>
+						<img src="/assets/img/adminimage.png" alt="">
+				
 				</div>
 			</div>
 		</div>

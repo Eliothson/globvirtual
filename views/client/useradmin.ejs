@@ -1,0 +1,31 @@
+<%- include ('header')-%>
+<br>
+<br><br>
+<br><br>
+<br>
+
+<div class="container">
+	<h1>Liste des Utilisateur</h1>
+
+	<table class="table table-sm">
+		<thead>
+		  <tr>
+			<th scope="col">Nom / Prenom</th>
+			<th scope="col">email</th>
+			<th scope="col">Telephone</th>
+		  </tr>
+		</thead>
+		<tbody>
+			<% users.forEach(function (userr){%>
+		  <tr>
+			<td><%= userr.nom%> </td>
+			<td> <%= userr.email%></td>
+			<td><%= userr.tel%></td>
+		  </tr>
+		</tbody>
+		<%})%>
+	  </table>
+</div>
+
+
+<%- include ('footer')-%>

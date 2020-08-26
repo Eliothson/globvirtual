@@ -8,26 +8,26 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Inscrivez-vous</h3>
-						<form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
-								<input type="file" name="postmedia" placeholder="Mettre une image" id="upload" onchange="previewImage(this);">
-                                    <img class="rounded-circle" src="http://via.placeholder.com/380x200" 
-                                    style="
-                                        background: #333;
-                                        height:300px;
-                                        width: 300px;
-                                    "
-                                    id="preview-image">
+						<form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm">
+							<div class="img img-circle" class="col-md-12 form-group">
+								<input type="file" required name="postmedia" placeholder="Mettre une image" id="upload" onchange="previewImage(this);">
+                                    <img src="http://via.placeholder.com/380x200" id="preview-image" width="90%">
 							</div>
 							
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="nom" placeholder="Nom et Prenom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control" required id="name" name="nom" placeholder="Nom et Prenom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nom et Prenom'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="mail" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								<input type="text" class="form-control" required id="name" name="mail" placeholder="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'">
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								<input type="text" class="form-control" required id="name" name="tel" placeholder="Telephpne" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Telephpne'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" required id="name" name="prof" placeholder="Profession" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Profession'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" required id="name" name="pwd" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn">Creer Votre Compt</button>
