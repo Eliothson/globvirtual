@@ -18,23 +18,20 @@
 	<section class="container">
 		<div class="row">
 			<% produit.forEach(function (produits){%> 
-				<div class="col-lg-3 col-md-4 col-sm-6">
-					<div class="single-product">
-						<img class="img-fluid" src="<%= produits.chemin%>" alt="">
+				<div class=" text-center col-lg-2 col-md-3 col-sm-4">
+					
+						<img src="<%= produits.chemin%>" height="200px">
 						<div class="product-details">
 							<h6><%= produits.nomProduit %></h6>
 							<div class="price">
 								<h6>$ <%= produits.prix %> US </h6>
 							</div>
-							<div class="prd-bottom">
-								<a href="/singleproduct/<%= produits._id %>" class="social-info">
-									<span class="lnr lnr-move"></span>
-									<p class="hover-text">view more</p>
+							<div class="">
+								<a href="/singleproduct/<%= produits._id %>" class="btn btn-danger"> Voir
 								</a>
 							</div>
 
 						</div>
-					</div>
 				</div>
 			<%})%>
 		</div>

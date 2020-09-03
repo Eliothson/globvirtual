@@ -7,12 +7,13 @@
 <div class="container">
 	<h1>Liste des Utilisateur</h1>
 
-	<table class="table table-sm">
+	<table class="table ">
 		<thead>
 		  <tr>
 			<th scope="col">Nom / Prenom</th>
 			<th scope="col">email</th>
 			<th scope="col">Telephone</th>
+			<th scope="col">Option</th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -20,7 +21,13 @@
 		  <tr>
 			<td><%= userr.nom%> </td>
 			<td> <%= userr.email%></td>
-			<td><%= userr.tel%></td>
+			<td><%= userr.tel%></td>   
+			<td>
+				<div class="btn btn-warning"> 
+					<a href="deleteUsers/<%= userr._id%>"><i class="fa fa-trash"></i></a>
+				</div>
+			</td>  
+
 		  </tr>
 		</tbody>
 		<%})%>

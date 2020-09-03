@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="login_form_inner">
+                    <% if (locals.user){ %>
                     <form class="row login_form" action="/inscription" method="POST" enctype="multipart/form-data" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
                             <img class="rounded-circle" width="50%" src="<%= user.chemin%>">
@@ -25,8 +26,8 @@
                             <h3>Profession</h3>
                             <p><%= user.prof%></p>
                         </div>
-                    
                     </form>
+                    <% }%>
                 </div>
             </div>
             <div class="col-lg-8">
@@ -42,24 +43,24 @@
             <hr>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                    <% produits.forEach(function (produit){%>
+
+                    <div class=" card col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="/assets/img/i4.jpg" alt=""></a>
+                            <a href="#"><img src="<%= produit.chemin%>" width="100px" alt=""></a>
                             <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
+                                <a href="#" class="title"> <%= produit.nom %> </a>
                                 <div class="price">
-                                    <span> Prix </span>
-                                    <h6>$189.00</h6>
+                                    <span> Prix : </span>
+                                    <h6> <%= produit.prix %>  </h6>
                                 </div>
-                            <div class="btn btn-warning">
-                                <i class="fa fa-trash"></i>
-                            </div>
-                            <div class="btn btn-danger">
-                                <i class="fa fa-cogs"></i>
-                            </div>
+                                <div class="btn btn-warning"> <a href="deleteProduit/<%= produit._id%>">
+                                    <i class="fa fa-trash"></i> </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <%})%>
                 </div>
                 
             </div>	
